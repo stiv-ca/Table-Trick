@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose";
-import { userSchema } from "src/entities/schemas/user.schema";
+import { userSchema } from "../schemas/user.schema";
 
 export interface User extends Document {
     emailUser: string;
@@ -7,4 +7,4 @@ export interface User extends Document {
     role: string;
 };
 
-export const UserModel = mongoose.model<User>('User', userSchema);  
+export const UserModel = mongoose.model<User>('User', userSchema); 
