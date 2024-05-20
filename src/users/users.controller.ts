@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Param, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+ import { Body, Controller, Get, Post, Query, Param, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserModel } from './users.service'
@@ -41,7 +41,5 @@ export class UserController {
     console.log(user);
     
     return this.userService.createUser(user);
-    
-    
   }
 }

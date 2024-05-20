@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     context: ExecutionContext
-  ): boolean | Promise<boolean> {
+  ): boolean | Promise<boolean>{
     
     const request = context.switchToHttp().getRequest();
     const {email , password, role } = request.body;
@@ -23,7 +23,9 @@ export class AuthGuard implements CanActivate {
 
     const token = jwt.sign({email: user.emailUser, role: user.role}, 'secret', {expiresIn: '1h'});
 
-    return token;
+    request.token = token;
+
+    return true;
 
   }
 }
