@@ -13,9 +13,9 @@ import { UserController } from 'modules/users/controllers/users.controller';
       isGlobal: true,
     }),
     UsersModule,
-    PersistenceModule,
+    PersistenceModule
   ],
   controllers: [UserController],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

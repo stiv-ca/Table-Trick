@@ -11,11 +11,6 @@ import { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class User extends Document {
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 50)
-  @Prop({ required: true })
-  name: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -31,6 +26,12 @@ export class User extends Document {
   })
   @Prop({ required: true })
   password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(3, 50)
+  @Prop({ required: true })
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

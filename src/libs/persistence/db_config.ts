@@ -10,7 +10,7 @@ export default registerAs('dbConfig', () => {
       password: process.env.DB_PASSWORD,
       atlas: process.env.DB_NAME,
     },
-    env: process.env.NODE_ENV || 'local',
+    env: process.env.NODE_ENV || 'production',
   };
   return dbConfig;
 });

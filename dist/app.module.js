@@ -25,10 +25,10 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
             }),
             users_module_1.UsersModule,
-            persistence_module_1.PersistenceModule,
+            persistence_module_1.PersistenceModule
         ],
         controllers: [users_controller_1.UserController],
-        providers: [],
+        providers: []
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
