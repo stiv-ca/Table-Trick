@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './users/users.service';
-import { UserController } from './users/users.controller';
-import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import dbConfig from './companies/persistence/db_config'
-import { PersistenceModule } from 'companies/persistence/persistence.module';
+import dbConfig from './modules/companies/persistence/db_config'
+import { PersistenceModule } from 'modules/companies/persistence/persistence.module';
+import { UsersModule } from 'modules/users/users.module';
+import { UserController } from 'modules/users/controllers/users.controller';
+import { UserService } from 'modules/users/services/users.service';
 
 @Module({
   imports: [
