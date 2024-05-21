@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './users/users.service';
-import { UserController } from './users/users.controller';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './modules/users/users.module'; // Importa UsersModule en lugar de UserService
 import { ConfigModule } from '@nestjs/config';
-import dbConfig from './companies/persistence/db_config'
-import { PersistenceModule } from 'companies/persistence/persistence.module';
+import db_config from 'libs/persistence/db_config';
+import { PersistenceModule } from 'libs/persistence/persistence.module';
+import { UserController } from 'modules/users/controllers/users.controller';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
-      load: [dbConfig],
+      load: [db_config],
       isGlobal: true,
     }),
-    PersistenceModule],
-  controllers: [ UserController ],
-  providers: [ UserService ],
+    UsersModule,
+    PersistenceModule,
+  ],
+  controllers: [UserController],
+  providers: [],
 })
 export class AppModule {}
-
