@@ -18,7 +18,7 @@ export class SignUpDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  username: string;
+  name: string;
 
   @ApiProperty()
   @IsNotEmpty()
