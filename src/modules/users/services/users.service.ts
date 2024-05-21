@@ -1,54 +1,75 @@
-import { Injectable } from '@nestjs/common';
-// import { InjectModel } from '@nestjs/mongoose';
-// import { Model } from 'mongoose';
-// import { User, UserDocument } from '../entities/schemas/user.schema'
-import { CreateUserDto } from '../dto/create-user.dto';
-// import * as bcrypt from 'bcrypt';
-
-export interface UserModel {
-  id: number;
-  emailUser: string;
-  passwordUser: string;
-  role: string;
-}
-
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateUserDto, UpdateUserDto } from '../dto';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  private users:UserModel[] = []
-
-  getUsers() {
-    return this.users
-  }
-
-  getUserById(id: number) {
-    const userFound = this.users.find(user => user.id === id)
-
-    if (userFound) {
-      return userFound
-    } else {
-      throw new Error(`User ${id} not found`)
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const existingUser = await this.userModel
+      .findOne({ email: createUserDto.email })
+      .exec();
+    if (existingUser) {
+      throw new HttpException(
+        `User with email ${createUserDto.email} already exists`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
+
+    const createdUser = new this.userModel(createUserDto);
+    return createdUser.save();
   }
 
-  getUserByEmail(email: string): UserModel | undefined {
-    return this.users.find(user => user.emailUser === email);
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
-  createUser(user : CreateUserDto): UserModel { 
+  async findOne(id: string): Promise<User> {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return user;
+  }
 
-    console.log(user);
-    
-    
-    const newUser:UserModel = {
-      id: this.users.length + 1,
-      emailUser: user.emailUser,
-      passwordUser:  user.passwordUser,
-      role: user.role,
-    };
-    this.users.push(newUser);
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) {
+      throw new NotFoundException(`User with email ${email} not found`);
+    }
+    return user;
+  }
 
-    return newUser
+  async findOneByEmailRegister(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (user) {
+      throw new NotFoundException(`User with email ${email} already exists`);
+    }
+    return user;
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const updatedUser = await this.userModel
+      .findByIdAndUpdate(id, updateUserDto, { new: true })
+      .exec();
+    if (!updatedUser) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return updatedUser;
+  }
+
+  async remove(id: string): Promise<void> {
+    const user = await this.userModel.findByIdAndDelete(id).exec();
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
   }
 }

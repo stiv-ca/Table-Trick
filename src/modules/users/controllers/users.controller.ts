@@ -1,45 +1,44 @@
- import { Body, Controller, Get, Post, Query, Param, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UserService } from '../services/users.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UserModel } from '../services/users.service'
-import { AuthGuard } from '../guards/auth/auth.guard';
 
-
-@Controller('/users')    
+@ApiTags('users')
+@ApiBearerAuth()
+@Controller('user')
 export class UserController {
-  userService: UserService;
+  constructor(private readonly userService: UserService) {}
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 
-  @Get('/get-users')
-  getAllUsers(): UserModel[] {
-    
-    return this.userService.getUsers();
+  @Get()
+  findAll() {
+    return this.userService.findAll();
   }
 
-  @Get('/:id')
-  getUser(@Param('id') id: string): UserModel {
-    console.log(id);
-
-    return this.userService.getUserById(parseInt(id));
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.userService.findOne(id);
   }
 
-
-  @Get('/:email')
-  // @UseGuards(AuthGuard)
-  getUserByEmail(@Param('email') email: string): UserModel | undefined {
-    console.log(email);
-    const user = this.userService.getUserByEmail(email);
-    return user;
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(id, updateUserDto);
   }
 
-
-  @Post('/create-user')
-  createUser(@Body() user : CreateUserDto) : UserModel {
-    console.log(user);
-    
-    return this.userService.createUser(user);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.userService.remove(id);
   }
 }
