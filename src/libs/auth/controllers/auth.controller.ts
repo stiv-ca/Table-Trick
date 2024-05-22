@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SignUpDto, UserLoginDto } from '../dtos';
 import { MyGuard } from '../guards/auth.guard';
 import { AuthService } from '../services/auth.service';
@@ -17,6 +17,7 @@ import { Public } from 'libs/decorators';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({ summary: 'Sign up' })
   @Public()
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
@@ -25,6 +26,7 @@ export class AuthController {
     return { access_token: token.access_token };
   }
 
+  @ApiOperation({ summary: 'Log in' })
   @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -34,6 +36,7 @@ export class AuthController {
     return { access_token: token.access_token };
   }
 
+  @ApiOperation({ summary: 'Check token' })
   @Post('check')
   @UseGuards(MyGuard)
   @ApiBearerAuth()
