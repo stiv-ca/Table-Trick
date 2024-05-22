@@ -12,7 +12,7 @@ import dbConfig from './db_config';
         const { db, env } = configService;
         const uriDb =
           env === 'production'
-            ? `mongodb+srv://${db.user}:${db.password}@cluster0.xnhtyo5.mongodb.net/${db.atlas}`
+            ? `mongodb+srv://${db.user}:${db.password}@cluster0.6ricnub.mongodb.net/${db.atlas}`
             : `${db.connection}${db.host}/${db.atlas}`;
         return {
           uri: uriDb,

@@ -13,6 +13,7 @@ const config_1 = require("@nestjs/config");
 const db_config_1 = require("./libs/persistence/db_config");
 const persistence_module_1 = require("./libs/persistence/persistence.module");
 const users_controller_1 = require("./modules/users/controllers/users.controller");
+const auth_module_1 = require("./libs/auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,6 +26,7 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
             }),
             users_module_1.UsersModule,
+            auth_module_1.AuthModule,
             persistence_module_1.PersistenceModule,
         ],
         controllers: [users_controller_1.UserController],
