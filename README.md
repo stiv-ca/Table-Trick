@@ -28,6 +28,7 @@ Repository containing the Nest.js part of this project called TableTrick
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project emphasizes on authentication to know if the user that is going to enter the application is registered and what role he/she fulfills within the application itself.
 
 ## Installation
 
@@ -59,6 +60,52 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Installed Units
+```txt
+-@nestjs/common : 
+This is the core module of Nest.js that provides the basic functionality for creating web applications and APIs.
+It contains decorators, dependency injectors, exceptions, filters, and other essential elements for Nest.js development.
+-@nestjs/config :
+Enables management of application configuration through environment variables, configuration files, and other configuration providers.
+It facilitates the loading and access to the application configuration in a structured way.
+-@nestjs/jwt: 
+Provides support for JSON Web Tokens (JWT) based authentication in Nest.js applications.
+It allows the generation, verification and management of JWT tokens for user authentication.
+-@nestjs/mapped-types:
+Provides utilities for data type manipulation and transformation in Nest.js.
+Facilitates the creation of extended and transformed data types from existing types.
+-@nestjs/mongoose:
+Provides integration with Mongoose, a MongoDB object modeling library for Node.js.
+Allows easy connection and interaction with MongoDB databases in Nest.js applications.
+-@nestjs/passport:
+Provides support for strategy-based authentication in Nest.js.
+It allows the integration of different authentication strategies, such as local, JWT, OAuth, among others, in Nest.js applications.
+-@nestjs/-platform-express: 
+Provides integration of Nest.js with Express, a web framework for Node.js.
+Allows Express functionality to be used in Nest.js applications.
+-@nestjs/swagger: 
+Facilitates the generation of interactive API documentation using Swagger in Nest.js applications.
+Allows API endpoints to be documented and visualized automatically.
+-bcrypt : 
+It is a password hashing library used to store passwords securely in Node.js applications.
+It allows hashing passwords before storing them in the database.
+-class-transformer : 
+Provides functionality to transform objects and classes in Node.js applications.
+Facilitates data transformation between different structures and formats.
+-class-validator : 
+Provides decorator-based data validation for classes and objects in Node.js applications.
+Allows defining validation rules for class and object properties declaratively.
+-jsonwebtoken : 
+It is a library for the generation and verification of JWT tokens in Node.js applications.
+It allows authentication and authorization based on JWT tokens in Node.js applications.
+-mongoose : 
+It is a MongoDB object modeling library for Node.js.
+It allows interacting with MongoDB databases in a simple way and defining data models in Node.js applications.
+-passport-jwt : 
+A JWT authentication strategy for Passport, an authentication middleware for Node.js.
+It enables JWT token-based authentication in Node.js applications using Passport.
 ```
 
 ## Support
